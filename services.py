@@ -28,7 +28,7 @@ async def delete_all_trades() -> bool:
 
 async def retrieve_min_max_trades(stockSymbol: str, start_date: str, end_data: str):
     trades = []
-    a = trades_collection.aggregate([
+    trades_aggregate = trades_collection.aggregate([
         {"$match": {
             "symbol": stockSymbol,
             'timestamp':
@@ -44,8 +44,8 @@ async def retrieve_min_max_trades(stockSymbol: str, start_date: str, end_data: s
             "MinimumValue": {"$min": "$price"}
         }}])
 
-    async for i in a:
-        trades.append(i)
+    async for trade in trades_aggregate:
+        trades.append(trade)
     trades[0]["symbol"] = stockSymbol
     return trades[0]
 
