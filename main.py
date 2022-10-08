@@ -9,9 +9,9 @@ trade_router = APIRouter(prefix="/trade", tags=["Trade"])
 app.include_router(trade_router)
 
 
-def ResponseModel(data, message):
+def ResponseModel(data=[], message=""):
     return {
-        "data": [data],
+        "data": data,
         "code": 200,
         "message": message,
     }
@@ -40,8 +40,7 @@ async def get_list_trades():
 async def delete_all_trades_data():
     deleted_student = await delete_all_trades()
     if deleted_student:
-        return ResponseModel(
-            "", "Trades deleted successfully"
+        return ResponseModel([], "Trades deleted successfully"
         )
     return ErrorResponseModel(
         "Error", 404, "Trades doesnt exist".format(id)
@@ -60,7 +59,7 @@ async def get_trades_data_by_id(id: str):
     )
 
 
-@app.get("/stocks/{stockSymbol}/price", response_description="Trades get min/max")
+@app.get("/stocks/{symbol}/price", response_description="Trades get min/max")
 async def get_max_min_price(symbol: str, start_date: str, end_data: str):
     trades = await retrieve_min_max_trades(symbol, start_date, end_data)
     if trades:

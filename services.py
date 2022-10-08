@@ -16,7 +16,7 @@ async def retrieve_trades() -> list:
 
 async def retrieve_trades_by_id_user(id: str):
     trades = []
-    async for trade in trades_collection.find({"user": id}):
+    async for trade in trades_collection.find({"user.id": int(id)}):
         trades.append(trades_helper(trade))
     return trades
 
@@ -34,7 +34,7 @@ async def retrieve_min_max_trades(stockSymbol: str, start_date: str, end_data: s
             'timestamp':
                 {
                     '$gte': start_date,
-                    '$lt': end_data
+                    '$lte': end_data
                 }
         }
         },
@@ -54,7 +54,10 @@ def trades_helper(trade) -> dict:
     return {
         "id": str(trade["_id"]),
         "type": trade["type"],
-        "user": trade["user"],
+        "user": {
+                 "id": trade["user"]["id"],
+                 "name": trade["user"]["name"]
+                 },
         "symbol": trade["symbol"],
         "price": trade["price"],
         "timestamp": trade["timestamp"],
