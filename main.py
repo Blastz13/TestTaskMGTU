@@ -51,7 +51,6 @@ async def delete_all_trades_data():
 @app.get("/{id}", response_description="Trades retrieved by id")
 async def get_trades_data_by_id(id: str):
     trades = await retrieve_trades_by_id_user(id)
-    print(trades)
     if trades:
         return ResponseModel(
             trades, "Trades retrieved by id successfully"
