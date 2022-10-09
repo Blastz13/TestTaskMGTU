@@ -2,12 +2,11 @@ from pydantic import BaseModel
 
 
 class UserSchema(BaseModel):
-    id: int
+    id: str
     name: str
 
 
 class CreateTradeSchema(BaseModel):
-    id: int
     type: str
     user: UserSchema
     symbol: str
