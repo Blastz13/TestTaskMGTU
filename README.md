@@ -27,6 +27,12 @@ Now you can start the server:
 uvicorn main:app --reload
 ```
 
+**Swagger**
+
+```bash
+http://0.0.0.0:8000/docs
+```
+
 ### License
 
 Copyright © 2021 [Blastz13](https://github.com/Blastz13/).
