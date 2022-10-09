@@ -11,7 +11,6 @@ def response_model(data=None, message="") -> dict:
 
 
 def trades_helper(trade: dict) -> dict:
-    print(trade)
     return {
         "id": str(trade["_id"]),
         "type": trade["type"],
