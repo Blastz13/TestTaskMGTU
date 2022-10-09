@@ -50,36 +50,3 @@ async def delete_all_trades() -> bool:
     if del_trades:
         return True
     return False
-
-
-# async def retrieve_min_max_trades(symbol: str, start_date: str, end_data: str):
-#     trades = []
-#     one_trade = await trades_collection.find_one({"symbol": symbol})
-#
-#     if not one_trade:
-#         return "An error occurred", f"Сделок с символом {symbol} не существует", 404
-#     one_trade_by_date = await trades_collection.find_one(
-#         {"symbol": symbol, "timestamp": {'$gte': start_date, '$lte': end_data}})
-#
-#     if not one_trade_by_date:
-#         return "An error occurred", f"Нет сделок в заданном периоде", 404
-#
-#     trades_aggregate = trades_collection.aggregate([
-#         {"$match": {
-#             "symbol": symbol,
-#             'timestamp':
-#                 {
-#                     '$gte': start_date,
-#                     '$lte': end_data
-#                 }
-#         }
-#         },
-#         {"$group": {
-#             "_id": "$symbol",
-#             "max": {"$max": "$price"},
-#             "min": {"$min": "$price"}
-#         }}])
-#
-#     async for trade in trades_aggregate:
-#         trades.append(trade)
-#     return trades
